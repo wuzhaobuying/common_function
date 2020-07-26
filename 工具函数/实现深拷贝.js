@@ -11,10 +11,15 @@ let isObject = (obj) => {
 function deepClone(obj, hash = new Map()) {
 	if (!isObject(obj)) return obj;
 	if (hash.has(obj)) return hash.get(obj);
-	let target = {};
+	let target;
+	if (target instanceof Array) {
+		target = [];
+	} else {
+		target = {};
+	}
 	hash.set(obj, target);
 	Object.keys(obj).forEach((key) => {
-		target[key] = isObject(obj[key]) ? deepClone(obj[key], hash) : obj[key];
+		target[key] = deepClone(obj[key], hash);
 	});
 	return target;
 }

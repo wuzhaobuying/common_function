@@ -1,15 +1,11 @@
 /**
  *
  */
-Array.prototype.myFlat = () => {
-	let arr = this;
-	let newArr = [];
-	arr.map((item) => {
-		if (Array.isArray(item)) {
-			newArr.push(...item.myFlat());
-		} else {
-			newArr.push(item);
-		}
-	});
-	return newArr;
-};
+function flat(arr) {
+	const isDeep = arr.some((item) => item instanceof Array);
+	if (!isDeep) {
+		return arr;
+	}
+	const res = Array.prototype.concat.apply([], arr);
+	return flat(res); // 递归
+}
