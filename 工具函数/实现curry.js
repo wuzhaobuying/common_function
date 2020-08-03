@@ -6,7 +6,7 @@ function curry(fn, currentArgs = []) {
 	return function (...args) {
 		currentArgs = currentArgs.concat(args);
 		if (currentArgs.length < fn.length) {
-			return curry.call(this, fn, ...currentArgs);
+			return curry.call(this, fn, currentArgs);
 		}
 		return fn.call(this, ...currentArgs);
 	};
